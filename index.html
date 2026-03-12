@@ -3,197 +3,177 @@
 
 <head>
 <meta charset="utf-8">
-<title>Web Synthesizer</title>
+<title>Liz Radway HW2 – Web Synthesizer</title>
 
 <style>
 
 body {
     font-family: Georgia, serif;
-    background: linear-gradient(135deg, #d8b1ff, #bfa2ff);
-    margin: 0;
-    height: 100vh;
-
+    background-color: #d8b1ff;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-}
-
-.container {
-    background: rgba(255,255,255,0.92);
-    padding: 35px 45px;
-    border-radius: 12px;
-    box-shadow: 0 10px 35px rgba(0,0,0,0.2);
-    width: 440px;
-    text-align: center;
-}
-
-h1 {
-    margin-top: 0;
-    color: #333;
+    margin: 0;
+    padding-top: 40px;
 }
 
 #description {
-    font-size: 17px;
-    margin-bottom: 20px;
-    color: #444;
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-.instructions {
-    font-size: 14px;
-    color: #555;
+#keyboardGuide {
+    background: rgba(255,255,255,0.85);
+    padding: 15px 25px;
+    border-radius: 8px;
     margin-bottom: 25px;
-    padding: 10px;
-    background: #f4f4ff;
-    border-radius: 6px;
+    text-align: center;
+    font-size: 15px;
 }
 
-.controls {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.keyRow {
+    margin-top: 8px;
+    font-family: monospace;
 }
 
-.control-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+#controls {
+    background-color: rgba(255,255,255,0.85);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
 }
 
 label {
-    font-size: 15px;
-    color: #333;
+    margin-right: 8px;
 }
 
 select,
 input[type="number"] {
-    padding: 8px 10px;
-    font-size: 14px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    background: #f5f5f5;
-}
-
-button {
-    margin-top: 20px;
-    padding: 12px 18px;
-    font-size: 16px;
-    background: #6a5acd;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.25s;
-}
-
-button:hover {
-    background: #5848c2;
+    padding: 6px;
+    margin: 5px;
 }
 
 #noteContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
 }
 
 .note {
-    position: absolute;
-    width: 50px;
-    height: 50px;
+    position:absolute;
+    width:50px;
+    height:50px;
 }
 
-.footer {
-    margin-top: 15px;
-    font-size: 12px;
-    color: #666;
+button {
+    margin-top:20px;
+    padding:10px 20px;
+    font-size:16px;
+    border:none;
+    border-radius:5px;
+    background:#4CAF50;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover {
+    background:#45a049;
 }
 
 </style>
 </head>
 
+
 <body>
 
-<div class="container">
-
-<h1>🎹 Web Synth</h1>
-
 <p id="description">
-Interactive browser synthesizer
+Press keys on your keyboard to play notes.
 </p>
 
-<div class="instructions">
-<strong>How to play:</strong><br>
-Press keys on your <strong>computer keyboard</strong> to trigger oscillators and play notes.<br>
-Multiple keys can be pressed simultaneously to play chords.
+<div id="keyboardGuide">
+
+<b>Keyboard Layout</b>
+
+<div class="keyRow">
+Z  S  X  D  C  V  G  B  H  N  J  M
 </div>
 
-<div class="controls">
+<div class="keyRow">
+Q  2  W  3  E  R  5  T  6  Y  7  U
+</div>
 
-<div class="control-group">
-<label for="waveform">Waveform</label>
+<div style="margin-top:8px;font-size:13px;">
+White notes are the letter keys.  
+Sharp/flat notes use the number or adjacent keys.
+</div>
+
+</div>
+
+
+<div id="controls">
+
+<label for="waveform">Waveform:</label>
+
 <select id="waveform">
-  <option value="sine">Sine</option>
-  <option value="square">Square</option>
-  <option value="sawtooth" selected>Sawtooth</option>
-  <option value="triangle">Triangle</option>
+<option value="sine">Sine</option>
+<option value="square">Square</option>
+<option value="sawtooth" selected>Sawtooth</option>
+<option value="triangle">Triangle</option>
 </select>
-</div>
 
-<div class="control-group">
-<label for="synthesis">Synthesis</label>
+
 <select id="synthesis">
-  <option value="additive" selected>Additive</option>
-  <option value="am">AM</option>
-  <option value="fm">FM</option>
+<option value="additive" selected>Additive</option>
+<option value="am">AM</option>
+<option value="fm">FM</option>
 </select>
-</div>
 
-<div id="modulationFreqOption" class="control-group" style="display:none;">
-<label for="modulationFreq">Modulation Freq</label>
+
+<div id="modulationFreqOption" style="display:none;">
+<label for="modulationFreq">Modulation Frequency:</label>
 <input type="number" id="modulationFreq" min="0" max="400">
 </div>
 
-<div id="lfoOption" class="control-group">
+
+<div id="lfoOption">
 <label>
 <input type="checkbox" id="lfoCheckbox" onChange="updateCheckbox()">
 Use LFO
 </label>
 </div>
 
-<div id="oscOption" class="control-group">
-<label for="oscNum">Oscillators</label>
+
+<div id="oscOption">
+<label for="oscNum">Oscillator Count:</label>
 <input type="number" id="oscNum" min="1" max="10">
 </div>
 
 </div>
 
-<button id="jingleBellsButton" style="display:none;">
-Play Jingle Bells 🎄
-</button>
-
-<div class="footer">
-Keyboard controlled synthesizer using the Web Audio API
-</div>
-
-</div>
 
 <div id="noteContainer"></div>
 
-<script src="main.js"></script>
+<button id="jingleBellsButton">Play Jingle Bells</button>
 
 <script>
-/* Show Jingle Bells button only on December 25 */
 
 const today = new Date();
-const isChristmas =
-    today.getMonth() === 11 && today.getDate() === 25;
+const isChristmas = (today.getMonth() === 11 && today.getDate() === 25);
 
-if (isChristmas) {
-    document.getElementById("jingleBellsButton").style.display = "inline-block";
+if(!isChristmas){
+    document.getElementById("jingleBellsButton").style.display = "none";
 }
+
 </script>
 
+<script src="main.js"></script>
+
 </body>
+
 </html>
