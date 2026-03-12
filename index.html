@@ -19,11 +19,11 @@ body {
 }
 
 .container {
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.92);
     padding: 35px 45px;
     border-radius: 12px;
     box-shadow: 0 10px 35px rgba(0,0,0,0.2);
-    width: 420px;
+    width: 440px;
     text-align: center;
 }
 
@@ -33,9 +33,18 @@ h1 {
 }
 
 #description {
-    font-size: 18px;
-    margin-bottom: 25px;
+    font-size: 17px;
+    margin-bottom: 20px;
     color: #444;
+}
+
+.instructions {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 25px;
+    padding: 10px;
+    background: #f4f4ff;
+    border-radius: 6px;
 }
 
 .controls {
@@ -104,7 +113,6 @@ button:hover {
 </style>
 </head>
 
-
 <body>
 
 <div class="container">
@@ -112,8 +120,14 @@ button:hover {
 <h1>🎹 Web Synth</h1>
 
 <p id="description">
-Press keys on your keyboard to play notes.
+Interactive browser synthesizer
 </p>
+
+<div class="instructions">
+<strong>How to play:</strong><br>
+Press keys on your <strong>computer keyboard</strong> to trigger oscillators and play notes.<br>
+Multiple keys can be pressed simultaneously to play chords.
+</div>
 
 <div class="controls">
 
@@ -155,10 +169,12 @@ Use LFO
 
 </div>
 
-<button id="jingleBellsButton">Play Jingle Bells 🎄</button>
+<button id="jingleBellsButton" style="display:none;">
+Play Jingle Bells 🎄
+</button>
 
 <div class="footer">
-Keyboard controlled synthesizer
+Keyboard controlled synthesizer using the Web Audio API
 </div>
 
 </div>
@@ -167,6 +183,17 @@ Keyboard controlled synthesizer
 
 <script src="main.js"></script>
 
-</body>
+<script>
+/* Show Jingle Bells button only on December 25 */
 
+const today = new Date();
+const isChristmas =
+    today.getMonth() === 11 && today.getDate() === 25;
+
+if (isChristmas) {
+    document.getElementById("jingleBellsButton").style.display = "inline-block";
+}
+</script>
+
+</body>
 </html>
