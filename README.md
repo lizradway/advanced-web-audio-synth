@@ -1,4 +1,4 @@
-# 🎹 Web Audio Synthesizer
+# 🎹 Advanced Web Audio Synthesizer
 
 An interactive **browser-based synthesizer** built with the **Web Audio API**.
 This project allows users to play musical notes using their **computer keyboard** while experimenting with multiple **sound synthesis techniques** and audio modulation effects.
